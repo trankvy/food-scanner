@@ -20,7 +20,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onSave, onClose }) => {
       weightMgmt: { level: SafetyLevel.CAUTION, text: "Calorie dense meal (~850 kcal)" },
       generalHealth: { level: SafetyLevel.SAFE, text: "Ingredients verified fresh" }
     },
-    primaryTag: 'DAIRY'
+    primaryTag: 'DAIRY' as const
   };
 
   const handleSave = () => {
@@ -31,7 +31,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onSave, onClose }) => {
       imageUrl: capturedImage,
       macros: result.macros,
       safety: result.safety as SafetyMetrics,
-      primaryTag: 'DAIRY' as any
+      primaryTag: result.primaryTag
     };
     onSave(newItem);
   };

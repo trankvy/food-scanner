@@ -20,7 +20,7 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
     if (activeFilter === 'All') return true;
     if (activeFilter === 'Safe') return item.primaryTag === 'SAFE';
     // Warning includes explicitly UNSAFE items and high-risk ALLERGY items
-    if (activeFilter === 'Warning') return item.primaryTag === 'UNSAFE' || item.primaryTag === 'ALLERGY';
+    if (activeFilter === 'Warning') return item.primaryTag === 'UNSAFE' || item.primaryTag === 'ALLERGY' || item.primaryTag === 'UNKNOWN';
     // Allergies includes explicitly ALLERGY items and DAIRY (intolerances)
     if (activeFilter === 'Allergies') return item.primaryTag === 'ALLERGY' || item.primaryTag === 'DAIRY';
     
@@ -83,6 +83,7 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
              const isUnsafe = item.primaryTag === 'UNSAFE' || item.primaryTag === 'ALLERGY';
              const isDairy = item.primaryTag === 'DAIRY';
              const isSafe = item.primaryTag === 'SAFE';
+             const isUnknown = item.primaryTag === 'UNKNOWN';
 
              let tagBg = 'bg-pale-mint';
              let tagText = 'text-black';
@@ -105,6 +106,13 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
                  label = 'Dairy';
                  subtitle = 'Lactose Warning';
                  subColor = 'text-orange-200';
+             } else if (isUnknown) {
+                 tagBg = 'bg-gray-500 backdrop-blur-sm';
+                 tagText = 'text-white';
+                 icon = 'help';
+                 label = 'Unknown';
+                 subtitle = 'Analysis Failed';
+                 subColor = 'text-gray-300';
              } else if (isSafe) {
                  tagBg = 'bg-pale-mint shadow-sm';
                  tagText = 'text-black';
