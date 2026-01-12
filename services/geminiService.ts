@@ -66,7 +66,7 @@ const RESPONSE_SCHEMA = {
 export const analyzeFoodImage = async (base64Image: string): Promise<Partial<FoodItem>> => {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-exp", // Using flash for speed/vision capabilities
+      model: "gemini-3-flash-preview", // Updated to the recommended model
       contents: {
         parts: [
           {
