@@ -95,67 +95,111 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto min-h-screen relative bg-background-light dark:bg-background-dark shadow-2xl overflow-hidden font-display transition-colors duration-300">
+    <div className="min-h-screen w-full bg-[#dce1e6] dark:bg-[#0a0a0a] flex items-center justify-center p-4 md:p-8 font-display select-none">
       
-      {/* Header */}
-      <header className={`px-5 py-4 pt-7 flex items-center bg-transparent sticky top-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
-        <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
-          {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
-        </h1>
-        {currentView === View.DASHBOARD && (
-            <button className="w-8 h-8 rounded-full bg-black shadow-sm flex items-center justify-center border border-transparent transition-transform active:scale-95">
-                <span className="material-symbols-outlined text-white text-[18px]">add</span>
-            </button>
-        )}
-      </header>
+      {/* iPhone 17 Pro Mockup */}
+      <div className="relative w-full max-w-[390px] aspect-[9/19.5] max-h-[850px] bg-[#222] rounded-[55px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)_inset,0_0_0_6px_#323232,0_0_0_7px_#111,0_30px_60px_-10px_rgba(0,0,0,0.4)] ring-1 ring-white/20 overflow-hidden">
+         
+         {/* Hardware Buttons */}
+         <div className="absolute top-28 -left-[8px] w-[3px] h-7 bg-[#2a2a2a] rounded-l-md border border-[#111] border-r-0"></div> {/* Action Btn */}
+         <div className="absolute top-40 -left-[8px] w-[3px] h-12 bg-[#2a2a2a] rounded-l-md border border-[#111] border-r-0"></div> {/* Vol Up */}
+         <div className="absolute top-56 -left-[8px] w-[3px] h-12 bg-[#2a2a2a] rounded-l-md border border-[#111] border-r-0"></div> {/* Vol Down */}
+         <div className="absolute top-44 -right-[8px] w-[3px] h-20 bg-[#2a2a2a] rounded-r-md border border-[#111] border-l-0"></div> {/* Power */}
 
-      {/* Main Content Area */}
-      <main className="min-h-[80vh]">
-        {currentView === View.DASHBOARD && <Dashboard />}
-        {currentView === View.MEMORY && <Memory items={history} />}
-      </main>
-
-      {/* Floating Scanner Modal */}
-      {showScanner && (
-        <Scanner onSave={handleSaveScan} onClose={() => setShowScanner(false)} />
-      )}
-
-      {/* Bottom Navigation Bar */}
-      <div className="fixed bottom-0 w-full max-w-md mx-auto left-0 right-0 z-40">
-        <div className="relative bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur-2xl border-t border-gray-200/50 pb-2 pt-3 px-10 flex justify-between items-end shadow-[0_-1px_3px_rgba(0,0,0,0.02)] h-20">
-          
-          <button 
-            onClick={() => setCurrentView(View.DASHBOARD)}
-            className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400'}`}
-          >
-            <span className={`material-symbols-outlined text-3xl transition-transform group-hover:scale-105 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
-                grid_view
-            </span>
-            <span className="text-[10px] font-semibold tracking-wide">Dashboard</span>
-          </button>
-
-          <button 
-            onClick={() => setShowScanner(true)}
-            className="flex flex-col items-center gap-1 group w-16 relative -top-4"
-          >
-            <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12),0_4px_8px_-2px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center relative group-active:scale-95 transition-all duration-200 ring-4 ring-white/50">
-              <span className="material-symbols-outlined text-3xl text-gray-800 group-hover:text-black transition-colors">qr_code_scanner</span>
-              <span className="absolute top-3.5 right-3.5 w-2 h-2 bg-sage-light rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] ring-2 ring-white"></span>
+         {/* Screen Container */}
+         <div className="relative w-full h-full bg-background-light dark:bg-background-dark rounded-[48px] overflow-hidden flex flex-col mask-image-rounded">
+            
+            {/* Dynamic Island / Status Bar Area */}
+            <div className={`absolute top-0 w-full h-14 z-[120] flex justify-between items-center px-8 pt-3.5 text-[15px] font-semibold transition-colors duration-300 pointer-events-none select-none ${showScanner ? 'text-white' : 'text-zinc-900 dark:text-white'}`}>
+               <span className="w-12 text-center pl-1 font-sans">9:41</span>
+               <div className="flex gap-2 items-center pr-1">
+                 {/* Cellular */}
+                 <span className="material-symbols-filled text-[18px]">signal_cellular_alt</span>
+                 {/* Wifi */}
+                 <span className="material-symbols-filled text-[18px]">wifi</span>
+                 {/* Battery */}
+                 <div className="relative w-[24px] h-[11.5px] border-[1px] border-current rounded-[3px] ml-0.5 opacity-90">
+                    <div className="absolute top-0 bottom-0 left-0 m-[1.5px] bg-current rounded-[1px] w-[60%]"></div>
+                    <div className="absolute top-1/2 -right-[3px] -translate-y-1/2 w-[1.5px] h-[4px] bg-current rounded-r-[1px]"></div>
+                 </div>
+               </div>
             </div>
-            <span className="text-[10px] font-semibold tracking-wide text-gray-600 group-hover:text-gray-800 mt-2">Scan</span>
-          </button>
+            
+            {/* Dynamic Island Cutout */}
+            <div className="absolute top-[11px] left-1/2 -translate-x-1/2 w-[120px] h-[35px] bg-black rounded-[20px] z-[120] pointer-events-none flex items-center justify-end pr-3">
+               <div className="w-2.5 h-2.5 rounded-full bg-[#111111] shadow-[inset_0_0_2px_rgba(255,255,255,0.1)]"></div>
+            </div>
 
-          <button 
-            onClick={() => setCurrentView(View.MEMORY)}
-            className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400'}`}
-          >
-            <span className={`material-symbols-outlined text-3xl transition-colors ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
-                history
-            </span>
-            <span className="text-[10px] font-semibold tracking-wide">Memory</span>
-          </button>
+            {/* Scrollable App Content */}
+            <div className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth group">
+              
+              {/* Header */}
+              <header className={`px-6 py-4 pt-14 flex items-center bg-transparent sticky top-0 z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
+                <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
+                  {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
+                </h1>
+                {currentView === View.DASHBOARD && (
+                    <button className="w-8 h-8 rounded-full bg-black shadow-sm flex items-center justify-center border border-transparent transition-transform active:scale-95">
+                        <span className="material-symbols-outlined text-white text-[18px]">add</span>
+                    </button>
+                )}
+              </header>
 
-        </div>
+              {/* Main Content */}
+              <main className="min-h-full">
+                {currentView === View.DASHBOARD && <Dashboard />}
+                {currentView === View.MEMORY && <Memory items={history} />}
+              </main>
+
+            </div>
+
+            {/* Scanner Modal */}
+            {showScanner && (
+              <Scanner onSave={handleSaveScan} onClose={() => setShowScanner(false)} />
+            )}
+
+            {/* Bottom Navigation Bar */}
+            <div className="absolute bottom-0 w-full z-40">
+              <div className="relative bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur-2xl border-t border-gray-200/50 pb-6 pt-3 px-8 flex justify-between items-end shadow-[0_-1px_3px_rgba(0,0,0,0.02)] h-[88px]">
+                
+                <button 
+                  onClick={() => setCurrentView(View.DASHBOARD)}
+                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400'}`}
+                >
+                  <span className={`material-symbols-outlined text-3xl transition-transform group-hover:scale-105 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
+                      grid_view
+                  </span>
+                  <span className="text-[10px] font-semibold tracking-wide">Dashboard</span>
+                </button>
+
+                <button 
+                  onClick={() => setShowScanner(true)}
+                  className="flex flex-col items-center gap-1 group w-16 relative -top-4"
+                >
+                  <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12),0_4px_8px_-2px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center relative group-active:scale-95 transition-all duration-200 ring-4 ring-white/50">
+                    <span className="material-symbols-outlined text-3xl text-gray-800 group-hover:text-black transition-colors">qr_code_scanner</span>
+                    <span className="absolute top-3.5 right-3.5 w-2 h-2 bg-sage-light rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] ring-2 ring-white"></span>
+                  </div>
+                  <span className="text-[10px] font-semibold tracking-wide text-gray-600 group-hover:text-gray-800 mt-2">Scan</span>
+                </button>
+
+                <button 
+                  onClick={() => setCurrentView(View.MEMORY)}
+                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400'}`}
+                >
+                  <span className={`material-symbols-outlined text-3xl transition-colors ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
+                      history
+                  </span>
+                  <span className="text-[10px] font-semibold tracking-wide">Memory</span>
+                </button>
+
+              </div>
+            </div>
+
+            {/* Home Indicator */}
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black/80 dark:bg-white/80 rounded-full z-50 pointer-events-none"></div>
+
+         </div>
       </div>
     </div>
   );

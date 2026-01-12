@@ -39,7 +39,7 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
     <div className="flex-1 px-4 pb-32 pt-2 animate-fade-in font-display">
       
       {/* Search Bar & Filters */}
-      <div className="mb-6 sticky top-[70px] z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md py-2 -mx-4 px-4 transition-colors duration-300">
+      <div className="mb-6 sticky top-[90px] z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md py-2 -mx-4 px-4 transition-colors duration-300">
         <div className="relative flex h-12 w-full items-center overflow-hidden rounded-full bg-surface-light dark:bg-surface-dark shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition-all focus-within:ring-2 focus-within:ring-primary mb-3">
           <div className="flex w-12 items-center justify-center text-text-main dark:text-gray-400">
             <span className="material-symbols-outlined text-2xl">search</span>

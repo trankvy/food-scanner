@@ -12,7 +12,7 @@ export const Dashboard: React.FC = () => {
       {/* Tabs */}
       <div className="flex items-center gap-3 overflow-x-auto no-scrollbar pb-1">
         {/* Summary Tab (Active) */}
-        <button className="flex items-center gap-2 px-3.5 py-1.5 bg-gray-100/80 rounded-full transition-transform active:scale-95 border border-transparent">
+        <button className="shrink-0 whitespace-nowrap flex items-center gap-2 px-3.5 py-1.5 bg-gray-100/80 rounded-full transition-transform active:scale-95 border border-transparent">
           <div className="w-4 h-4 rounded-full bg-white flex items-center justify-center shadow-sm">
             <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
           </div>
@@ -20,7 +20,7 @@ export const Dashboard: React.FC = () => {
         </button>
 
         {/* Liver Health Tab */}
-        <button className="flex items-center gap-2 px-1 py-1 pr-3 rounded-full transition-transform active:scale-95 group">
+        <button className="shrink-0 whitespace-nowrap flex items-center gap-2 px-1 py-1 pr-3 rounded-full transition-transform active:scale-95 group">
           <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
              <span className="text-emerald-700 font-bold text-[10px]">A</span>
           </div>
@@ -28,7 +28,7 @@ export const Dashboard: React.FC = () => {
         </button>
 
         {/* Kidney Tab */}
-        <button className="flex items-center gap-2 px-1 py-1 pr-3 rounded-full transition-transform active:scale-95 group">
+        <button className="shrink-0 whitespace-nowrap flex items-center gap-2 px-1 py-1 pr-3 rounded-full transition-transform active:scale-95 group">
           <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
              <span className="text-emerald-700 font-bold text-[10px]">A</span>
           </div>

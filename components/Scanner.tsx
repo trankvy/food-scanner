@@ -37,7 +37,7 @@ export const Scanner: React.FC<ScannerProps> = ({ onSave, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] bg-background-dark font-display flex flex-col select-none animate-fade-in">
+    <div className="absolute inset-0 z-[100] bg-background-dark font-display flex flex-col select-none animate-fade-in rounded-[48px] overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: `url('${capturedImage}')` }}>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60"></div>
