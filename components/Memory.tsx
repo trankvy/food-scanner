@@ -36,10 +36,10 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
   };
 
   return (
-    <div className="flex-1 px-4 pb-32 pt-2 animate-fade-in font-display">
+    <div className="flex-1 px-4 pb-6 pt-2 animate-fade-in font-display">
       
       {/* Search Bar & Filters */}
-      <div className="mb-6 sticky top-[90px] z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md py-2 -mx-4 px-4 transition-colors duration-300">
+      <div className="mb-6 z-10 bg-transparent py-2 -mx-4 px-4 transition-colors duration-300">
         <div className="relative flex h-12 w-full items-center overflow-hidden rounded-full bg-surface-light dark:bg-surface-dark shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition-all focus-within:ring-2 focus-within:ring-primary mb-3">
           <div className="flex w-12 items-center justify-center text-text-main dark:text-gray-400">
             <span className="material-symbols-outlined text-2xl">search</span>
@@ -129,11 +129,11 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
              return (
                 <div 
                   key={item.id} 
-                  className="group relative flex aspect-[4/5] w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md transition-transform hover:scale-[1.02] active:scale-95 transform-gpu animate-fade-in"
+                  className="group/card relative flex aspect-[4/5] w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md transition-transform hover:scale-[1.02] active:scale-95 transform-gpu animate-fade-in"
                   style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
                 >
                   <div 
-                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" 
+                    className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/card:scale-110" 
                     style={{ backgroundImage: `url('${item.imageUrl}')` }}
                   ></div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>

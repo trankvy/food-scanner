@@ -2,7 +2,10 @@ import React from 'react';
 
 export const Dashboard: React.FC = () => {
   return (
-    <div className="px-5 pt-2 space-y-5 pb-32 animate-fade-in font-display">
+    <div className="relative px-5 pt-2 space-y-5 animate-fade-in font-display">
+      
+      {/* Subtle Background Element */}
+      <div className="absolute top-0 right-0 w-64 h-64 bg-green-200/20 rounded-full blur-3xl -z-10 -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
       
       {/* Page Title */}
       <div>

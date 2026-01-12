@@ -98,7 +98,7 @@ const App: React.FC = () => {
     <div className="min-h-screen w-full bg-[#dce1e6] dark:bg-[#0a0a0a] flex items-center justify-center p-4 md:p-8 font-display select-none">
       
       {/* iPhone 17 Pro Mockup */}
-      <div className="relative w-full max-w-[390px] aspect-[9/19.5] max-h-[850px] bg-[#222] rounded-[55px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)_inset,0_0_0_6px_#323232,0_0_0_7px_#111,0_30px_60px_-10px_rgba(0,0,0,0.4)] ring-1 ring-white/20 overflow-hidden">
+      <div className="relative w-full max-w-[390px] aspect-[9/19.5] max-h-[850px] bg-[#222] rounded-[55px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)_inset,0_0_0_6px_#323232,0_0_0_7px_#111] ring-1 ring-white/20 overflow-hidden">
          
          {/* Hardware Buttons */}
          <div className="absolute top-28 -left-[8px] w-[3px] h-7 bg-[#2a2a2a] rounded-l-md border border-[#111] border-r-0"></div> {/* Action Btn */}
@@ -131,10 +131,10 @@ const App: React.FC = () => {
             </div>
 
             {/* Scrollable App Content */}
-            <div className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth group">
+            <div className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth">
               
-              {/* Header */}
-              <header className={`px-6 py-4 pt-14 flex items-center bg-transparent sticky top-0 z-40 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
+              {/* Header - Not sticky, scrolls away */}
+              <header className={`px-6 py-4 pt-20 flex items-center bg-transparent ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
                 <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
                   {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
                 </h1>
@@ -146,7 +146,7 @@ const App: React.FC = () => {
               </header>
 
               {/* Main Content */}
-              <main className="min-h-full">
+              <main className="pb-28">
                 {currentView === View.DASHBOARD && <Dashboard />}
                 {currentView === View.MEMORY && <Memory items={history} />}
               </main>
@@ -164,9 +164,9 @@ const App: React.FC = () => {
                 
                 <button 
                   onClick={() => setCurrentView(View.DASHBOARD)}
-                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
-                  <span className={`material-symbols-outlined text-3xl transition-transform group-hover:scale-105 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
+                  <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
                       grid_view
                   </span>
                   <span className="text-[10px] font-semibold tracking-wide">Dashboard</span>
@@ -174,20 +174,20 @@ const App: React.FC = () => {
 
                 <button 
                   onClick={() => setShowScanner(true)}
-                  className="flex flex-col items-center gap-1 group w-16 relative -top-4"
+                  className="flex flex-col items-center gap-1.5 group w-16 pb-2"
                 >
-                  <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12),0_4px_8px_-2px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center relative group-active:scale-95 transition-all duration-200 ring-4 ring-white/50">
+                  <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12),0_4px_8px_-2px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center relative group-active:scale-95 transition-all duration-200 ring-4 ring-white/50 -mt-14">
                     <span className="material-symbols-outlined text-3xl text-gray-800 group-hover:text-black transition-colors">qr_code_scanner</span>
                     <span className="absolute top-3.5 right-3.5 w-2 h-2 bg-sage-light rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] ring-2 ring-white"></span>
                   </div>
-                  <span className="text-[10px] font-semibold tracking-wide text-gray-600 group-hover:text-gray-800 mt-2">Scan</span>
+                  <span className="text-[10px] font-semibold tracking-wide text-gray-400 group-hover:text-gray-600">Scan</span>
                 </button>
 
                 <button 
                   onClick={() => setCurrentView(View.MEMORY)}
-                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400'}`}
+                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
-                  <span className={`material-symbols-outlined text-3xl transition-colors ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
+                  <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
                       history
                   </span>
                   <span className="text-[10px] font-semibold tracking-wide">Memory</span>
