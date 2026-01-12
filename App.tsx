@@ -85,20 +85,6 @@ const App: React.FC = () => {
         generalHealth: { level: SafetyLevel.SAFE, text: 'Vitamins' }
       },
       primaryTag: 'SAFE'
-    },
-    {
-      id: '7',
-      name: 'Double Bacon Burger',
-      timestamp: Date.now() - 200000000,
-      imageUrl: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAf2K4wP-F5_p_tWv4V8oJ9yC2X1g3dZ5e8f4j6k7h8i9l0m1n2o3p4q5r6s7t8u9v0w1x2y3z4a5b6c7d8e9f0', 
-      // Using a placeholder or reusing an image if needed, but for now assuming data object structure is key
-      macros: { carbs: 50, protein: 30, fat: 60 },
-      safety: {
-        diabetesRisk: { level: SafetyLevel.WARNING, text: 'High GI & Fat' },
-        weightMgmt: { level: SafetyLevel.WARNING, text: 'Very High Calorie' },
-        generalHealth: { level: SafetyLevel.CAUTION, text: 'Processed Meat' }
-      },
-      primaryTag: 'UNSAFE'
     }
   ]);
 
@@ -113,7 +99,7 @@ const App: React.FC = () => {
       
       {/* Header */}
       <header className={`px-5 py-4 pt-7 flex items-center bg-transparent sticky top-0 z-20 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
-        <h1 className="text-[28px] font-brand font-bold tracking-tight text-text-main dark:text-white leading-none pb-1">
+        <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
           {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
         </h1>
         {currentView === View.DASHBOARD && (

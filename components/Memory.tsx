@@ -127,7 +127,11 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
              if (item.name === 'Peanut Satay') subtitle = 'Contains Peanuts';
 
              return (
-                <div key={item.id} className="group relative flex aspect-[4/5] w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md transition-transform hover:scale-[1.02] animate-fade-in">
+                <div 
+                  key={item.id} 
+                  className="group relative flex aspect-[4/5] w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800 shadow-md transition-transform hover:scale-[1.02] active:scale-95 transform-gpu animate-fade-in"
+                  style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
+                >
                   <div 
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110" 
                     style={{ backgroundImage: `url('${item.imageUrl}')` }}
