@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, FoodItem, SafetyLevel } from './types';
 import { Dashboard } from './components/Dashboard';
 import { Memory } from './components/Memory';
@@ -7,6 +7,15 @@ import { Scanner } from './components/Scanner';
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>(View.DASHBOARD);
   const [showScanner, setShowScanner] = useState(false);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top when view changes
+  useEffect(() => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTop = 0;
+    }
+  }, [currentView]);
+
   const [history, setHistory] = useState<FoodItem[]>([
     {
       id: '1',
@@ -131,7 +140,10 @@ const App: React.FC = () => {
             </div>
 
             {/* Scrollable App Content */}
-            <div className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth">
+            <div 
+              ref={scrollContainerRef}
+              className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth"
+            >
               
               {/* Header - Not sticky, scrolls away */}
               <header className={`px-6 py-4 pt-20 flex items-center bg-transparent ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
@@ -164,7 +176,7 @@ const App: React.FC = () => {
                 
                 <button 
                   onClick={() => setCurrentView(View.DASHBOARD)}
-                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
                   <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
                       grid_view
@@ -185,7 +197,7 @@ const App: React.FC = () => {
 
                 <button 
                   onClick={() => setCurrentView(View.MEMORY)}
-                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 pb-2 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
                 >
                   <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
                       history
