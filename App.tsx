@@ -107,7 +107,7 @@ const App: React.FC = () => {
     <div className="h-screen w-full bg-[#dce1e6] dark:bg-[#0a0a0a] flex items-center justify-center p-2 font-display select-none overflow-hidden">
       
       {/* iPhone 17 Pro Mockup */}
-      <div className="relative h-[95vh] aspect-[9/19.5] bg-[#222] rounded-[55px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)_inset,0_0_0_6px_#323232,0_0_0_7px_#111] ring-1 ring-white/20 overflow-hidden">
+      <div className="relative h-[95vh] aspect-[9/19.5] bg-[#222] rounded-[55px] shadow-[0_0_2px_2px_rgba(255,255,255,0.1)_inset,0_0_0_6px_#323232,0_0_0_7px_#111] ring-1 ring-white/20 overflow-hidden transition-all duration-300">
          
          {/* Hardware Buttons */}
          <div className="absolute top-28 -left-[8px] w-[3px] h-7 bg-[#2a2a2a] rounded-l-md border border-[#111] border-r-0"></div> {/* Action Btn */}
@@ -145,7 +145,7 @@ const App: React.FC = () => {
               className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth"
             >
               
-              {/* Header - Not sticky, scrolls away */}
+              {/* Header */}
               <header className={`px-6 py-4 pt-20 flex items-center bg-transparent ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
                 <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
                   {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
