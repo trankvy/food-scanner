@@ -1,7 +1,8 @@
 export enum View {
   DASHBOARD = 'DASHBOARD',
   SCAN = 'SCAN',
-  MEMORY = 'MEMORY'
+  MEMORY = 'MEMORY',
+  RESULT = 'RESULT'
 }
 
 export enum SafetyLevel {

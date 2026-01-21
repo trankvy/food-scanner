@@ -3,10 +3,12 @@ import { View, FoodItem, SafetyLevel } from './types';
 import { Dashboard } from './components/Dashboard';
 import { Memory } from './components/Memory';
 import { Scanner } from './components/Scanner';
+import { Result } from './components/Result';
 
 const App: React.FC = () => {
   const [currentView, setCurrentView] = useState<View>(View.DASHBOARD);
   const [showScanner, setShowScanner] = useState(false);
+  const [selectedItem, setSelectedItem] = useState<FoodItem | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Scroll to top when view changes
@@ -98,8 +100,17 @@ const App: React.FC = () => {
   ]);
 
   const handleSaveScan = (newItem: FoodItem) => {
+    // Add to history
     setHistory(prev => [newItem, ...prev]);
+    // Set as currently selected item for the Result view
+    setSelectedItem(newItem);
+    // Hide scanner
     setShowScanner(false);
+    // Navigate to Result view instead of Memory immediately
+    setCurrentView(View.RESULT);
+  };
+
+  const handleResultDone = () => {
     setCurrentView(View.MEMORY);
   };
 
@@ -119,7 +130,7 @@ const App: React.FC = () => {
          <div className="relative w-full h-full bg-background-light dark:bg-background-dark rounded-[48px] overflow-hidden flex flex-col mask-image-rounded">
             
             {/* Dynamic Island / Status Bar Area */}
-            <div className={`absolute top-0 w-full h-14 z-[120] flex justify-between items-center px-8 pt-3.5 text-[15px] font-semibold transition-colors duration-300 pointer-events-none select-none ${showScanner ? 'text-white' : 'text-zinc-900 dark:text-white'}`}>
+            <div className={`absolute top-0 w-full h-14 z-[120] flex justify-between items-center px-8 pt-3.5 text-[15px] font-semibold transition-colors duration-300 pointer-events-none select-none ${showScanner || currentView === View.RESULT ? 'text-white' : 'text-zinc-900 dark:text-white'}`}>
                <span className="w-12 text-center pl-1 font-sans">9:41</span>
                <div className="flex gap-2 items-center pr-1">
                  {/* Cellular */}
@@ -145,22 +156,31 @@ const App: React.FC = () => {
               className="flex-1 overflow-y-auto no-scrollbar relative bg-background-light dark:bg-background-dark scroll-smooth"
             >
               
-              {/* Header */}
-              <header className={`px-6 py-4 pt-20 flex items-center bg-transparent ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
-                <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
-                  {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
-                </h1>
-                {currentView === View.DASHBOARD && (
-                    <button className="w-8 h-8 rounded-full bg-black shadow-sm flex items-center justify-center border border-transparent transition-transform active:scale-95">
-                        <span className="material-symbols-outlined text-white text-[18px]">add</span>
-                    </button>
-                )}
-              </header>
+              {/* Header - Only show if NOT in Result view (Result has its own header) */}
+              {currentView !== View.RESULT && (
+                <header className={`px-6 py-4 pt-20 flex items-center bg-transparent ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
+                  <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
+                    {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
+                  </h1>
+                  {currentView === View.DASHBOARD && (
+                      <button className="w-8 h-8 rounded-full bg-black shadow-sm flex items-center justify-center border border-transparent transition-transform active:scale-95">
+                          <span className="material-symbols-outlined text-white text-[18px]">add</span>
+                      </button>
+                  )}
+                </header>
+              )}
 
               {/* Main Content */}
-              <main className="pb-28">
+              <main className={`${currentView === View.RESULT ? 'h-full' : 'pb-28'}`}>
                 {currentView === View.DASHBOARD && <Dashboard />}
                 {currentView === View.MEMORY && <Memory items={history} />}
+                {currentView === View.RESULT && selectedItem && (
+                  <Result 
+                    item={selectedItem} 
+                    onDone={handleResultDone}
+                    onBack={() => setCurrentView(View.DASHBOARD)} 
+                  />
+                )}
               </main>
 
             </div>
@@ -170,43 +190,45 @@ const App: React.FC = () => {
               <Scanner onSave={handleSaveScan} onClose={() => setShowScanner(false)} />
             )}
 
-            {/* Bottom Navigation Bar */}
-            <div className="absolute bottom-0 w-full z-40">
-              <div className="relative bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur-2xl border-t border-gray-200/50 pb-6 pt-3 px-8 flex justify-between items-end shadow-[0_-1px_3px_rgba(0,0,0,0.02)] h-[88px]">
-                
-                <button 
-                  onClick={() => setCurrentView(View.DASHBOARD)}
-                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
-                >
-                  <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
-                      grid_view
-                  </span>
-                  <span className="text-[10px] font-semibold tracking-wide">Dashboard</span>
-                </button>
+            {/* Bottom Navigation Bar - Hide when in Result View */}
+            {currentView !== View.RESULT && (
+              <div className="absolute bottom-0 w-full z-40">
+                <div className="relative bg-white/90 dark:bg-[#0f172a]/95 backdrop-blur-2xl border-t border-gray-200/50 pb-6 pt-3 px-8 flex justify-between items-end shadow-[0_-1px_3px_rgba(0,0,0,0.02)] h-[88px]">
+                  
+                  <button 
+                    onClick={() => setCurrentView(View.DASHBOARD)}
+                    className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 ${currentView === View.DASHBOARD ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  >
+                    <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.DASHBOARD ? 'material-symbols-filled' : ''}`}>
+                        grid_view
+                    </span>
+                    <span className="text-[10px] font-semibold tracking-wide">Dashboard</span>
+                  </button>
 
-                <button 
-                  onClick={() => setShowScanner(true)}
-                  className="flex flex-col items-center gap-1.5 group w-16 pb-2"
-                >
-                  <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12),0_4px_8px_-2px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center relative group-active:scale-95 transition-all duration-200 ring-4 ring-white/50 -mt-14">
-                    <span className="material-symbols-outlined text-3xl text-gray-800 group-hover:text-black transition-colors">qr_code_scanner</span>
-                    <span className="absolute top-3.5 right-3.5 w-2 h-2 bg-sage-light rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] ring-2 ring-white"></span>
-                  </div>
-                  <span className="text-[10px] font-semibold tracking-wide text-gray-400 group-hover:text-gray-600">Scan</span>
-                </button>
+                  <button 
+                    onClick={() => setShowScanner(true)}
+                    className="flex flex-col items-center gap-1.5 group w-16 pb-2"
+                  >
+                    <div className="w-16 h-16 rounded-full bg-white shadow-[0_8px_20px_-4px_rgba(0,0,0,0.12),0_4px_8px_-2px_rgba(0,0,0,0.06)] border border-gray-100 flex items-center justify-center relative group-active:scale-95 transition-all duration-200 ring-4 ring-white/50 -mt-14">
+                      <span className="material-symbols-outlined text-3xl text-gray-800 group-hover:text-black transition-colors">qr_code_scanner</span>
+                      <span className="absolute top-3.5 right-3.5 w-2 h-2 bg-sage-light rounded-full shadow-[0_0_8px_rgba(16,185,129,0.5)] ring-2 ring-white"></span>
+                    </div>
+                    <span className="text-[10px] font-semibold tracking-wide text-gray-400 group-hover:text-gray-600">Scan</span>
+                  </button>
 
-                <button 
-                  onClick={() => setCurrentView(View.MEMORY)}
-                  className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
-                >
-                  <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
-                      history
-                  </span>
-                  <span className="text-[10px] font-semibold tracking-wide">Memory</span>
-                </button>
+                  <button 
+                    onClick={() => setCurrentView(View.MEMORY)}
+                    className={`flex flex-col items-center gap-1.5 group w-16 transition-all duration-300 ${currentView === View.MEMORY ? 'text-sage-light' : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'}`}
+                  >
+                    <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
+                        history
+                    </span>
+                    <span className="text-[10px] font-semibold tracking-wide">Memory</span>
+                  </button>
 
+                </div>
               </div>
-            </div>
+            )}
 
             {/* Home Indicator */}
             <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black/80 dark:bg-white/80 rounded-full z-50 pointer-events-none"></div>

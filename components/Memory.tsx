@@ -146,11 +146,6 @@ export const Memory: React.FC<MemoryProps> = ({ items }) => {
                     </span>
                   </div>
 
-                  {/* Icon Top Right */}
-                  <div className="absolute right-3 top-3 flex size-8 items-center justify-center rounded-full bg-black/40 backdrop-blur-md">
-                     <span className="material-symbols-outlined text-white text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
-                  </div>
-
                   <div className="mt-auto p-4">
                     <h3 className="line-clamp-2 text-lg font-bold leading-tight text-white">{item.name}</h3>
                     <p className={`mt-1 text-xs font-medium ${subColor}`}>
