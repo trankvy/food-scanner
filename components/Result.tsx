@@ -82,7 +82,7 @@ export const Result: React.FC<ResultProps> = ({ item, onDone, onBack }) => {
       </div>
 
       {/* Main Content Card */}
-      <div className="relative -mt-10 bg-white dark:bg-[#000000] rounded-t-[32px] px-6 pt-8 flex flex-col gap-6 z-0 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] pb-32">
+      <div className="relative -mt-10 bg-white dark:bg-[#000000] rounded-t-[32px] px-6 pt-8 flex flex-col gap-6 z-0 shadow-[0_-8px_30px_rgba(0,0,0,0.04)] pb-12">
         {/* Pull Indicator */}
         <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-gray-200 dark:bg-gray-800 rounded-full"></div>
         
@@ -207,21 +207,21 @@ export const Result: React.FC<ResultProps> = ({ item, onDone, onBack }) => {
           </div>
         </div>
 
-        <div className="h-8"></div>
-      </div>
+        {/* Action Buttons - Now moved to the bottom of the page content */}
+        <div className="flex gap-3 pt-6 animate-slide-up" style={{ animationDelay: '0.4s' }}>
+          <button className="flex-1 h-14 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white font-bold flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-sm active:scale-[0.98]">
+              <span className="material-symbols-outlined text-xl">auto_fix</span>
+              Fix Results
+          </button>
+          <button 
+              onClick={onDone}
+              className="flex-1 h-14 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold flex items-center justify-center hover:opacity-90 transition shadow-xl active:scale-[0.98]"
+          >
+              Done
+          </button>
+        </div>
 
-      {/* Floating Action Buttons */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-white via-white to-transparent dark:from-[#000000] dark:via-[#000000] pt-12 pb-8 flex gap-3 z-50">
-        <button className="flex-1 h-14 rounded-full border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-black dark:text-white font-bold flex items-center justify-center gap-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition shadow-lg shadow-gray-200/50 dark:shadow-none active:scale-[0.98]">
-            <span className="material-symbols-outlined text-xl">auto_fix</span>
-            Fix Results
-        </button>
-        <button 
-            onClick={onDone}
-            className="flex-1 h-14 rounded-full bg-black dark:bg-white text-white dark:text-black font-bold flex items-center justify-center hover:opacity-90 transition shadow-xl shadow-black/20 dark:shadow-white/10 active:scale-[0.98]"
-        >
-            Done
-        </button>
+        <div className="h-4"></div>
       </div>
     </div>
   );
