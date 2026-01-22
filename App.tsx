@@ -100,8 +100,11 @@ const App: React.FC = () => {
   ]);
 
   const handleSaveScan = (newItem: FoodItem) => {
-    // Add to history
-    setHistory(prev => [newItem, ...prev]);
+    // Add to history, removing duplicates by name
+    setHistory(prev => {
+        const filtered = prev.filter(item => item.name.toLowerCase() !== newItem.name.toLowerCase());
+        return [newItem, ...filtered];
+    });
     // Set as currently selected item for the Result view
     setSelectedItem(newItem);
     // Hide scanner
@@ -160,7 +163,7 @@ const App: React.FC = () => {
               {currentView !== View.RESULT && (
                 <header className={`px-6 py-4 pt-20 flex items-center bg-transparent ${currentView === View.DASHBOARD ? 'justify-between' : 'justify-center'}`}>
                   <h1 className={`text-[28px] font-bold tracking-tight text-text-main dark:text-white leading-none pb-1 ${currentView === View.DASHBOARD ? 'font-brand' : ''}`}>
-                    {currentView === View.DASHBOARD ? 'superpower' : 'Food Memory'}
+                    {currentView === View.DASHBOARD ? 'superpower' : 'Collections'}
                   </h1>
                   {currentView === View.DASHBOARD && (
                       <button className="w-8 h-8 rounded-full bg-black shadow-sm flex items-center justify-center border border-transparent transition-transform active:scale-95">
@@ -223,7 +226,7 @@ const App: React.FC = () => {
                     <span className={`material-symbols-outlined text-3xl transition-transform duration-300 group-hover:scale-110 ${currentView === View.MEMORY ? 'material-symbols-filled' : ''}`}>
                         history
                     </span>
-                    <span className="text-[10px] font-semibold tracking-wide">Memory</span>
+                    <span className="text-[10px] font-semibold tracking-wide">Collections</span>
                   </button>
 
                 </div>

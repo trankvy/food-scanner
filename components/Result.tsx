@@ -61,8 +61,8 @@ export const Result: React.FC<ResultProps> = ({ item, onDone, onBack }) => {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/10 pointer-events-none"></div>
         
-        {/* Header Nav */}
-        <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10 pt-8">
+        {/* Header Nav - Padding increased to pt-20 to clear status bar */}
+        <div className="absolute top-0 left-0 right-0 p-6 flex justify-between items-center z-10 pt-20">
           <button 
             onClick={onBack}
             className="w-10 h-10 rounded-full bg-black/20 backdrop-blur-xl flex items-center justify-center text-white hover:bg-black/30 transition shadow-lg border border-white/10"
